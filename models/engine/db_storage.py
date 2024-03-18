@@ -17,7 +17,10 @@ class DBStorage:
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
 
-        db_url = f"mysql+mysqldb://{user}:{pswrd}@{host}/{db}"
+        db_url = f"mysql+mysqldb://{}:{}@{}/{}".format(user,
+                                                       pswrd,
+                                                       host,
+                                                       db)
 
         self.__engine = create_engine(db_url, pool_pre_ping=True)
 
@@ -46,17 +49,17 @@ class DBStorage:
         return obj_dict
 
     def new(self, obj):
-    """
-    add the objects to the  current database session
-    """
-    self.__session.add(obj)
-    self.__session.commit()
+        """
+        add the objects to the  current database session
+        """
+        self.__session.add(obj)
+        self.__session.commit()
 
     def save(self):
-    """
-    commit all changes of the current database session
-    """
-    self.__session.commit()
+        """
+        commit all changes of the current database session
+        """
+        self.__session.commit()
 
     def delete(self, obj=None):
         """
@@ -66,11 +69,11 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-            """
+        """
 
-            """
-            Base.metadata.drop_all(self.__engine)
-            Base.metadata.create_all(self.__engine)
-            fsession = sessionmaker(bind=self.__engine, expire_on_commit=False)
-            Session = scoped_session(fsession)
-            self.__session = Session()
+        """
+        Base.metadata.drop_all(self.__engine)
+        Base.metadata.create_all(self.__engine)
+        fsession = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(fsession)
+        self.__session = Session()
