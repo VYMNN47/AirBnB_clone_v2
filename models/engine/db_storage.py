@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 from os import getenv
 from sqlalchemy.orm import scoped_session, sessionmaker, Session
 from models.base_model import BaseModel, Base
+from models.city import City
+from models.place import Place
 
 
 class DBStorage:
