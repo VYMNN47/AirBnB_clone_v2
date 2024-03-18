@@ -67,7 +67,7 @@ class FileStorage:
         if obj is None:
             return
 
-        obj_d = f"{obj.__class__.__name__}.{obj.id}"
+        obj_d = "{}.{}".format(obj.__class__.__name__, obj.id)
 
         if obj_d in FileStorage.__objects:
             del FileStorage.__objects[obj_d]

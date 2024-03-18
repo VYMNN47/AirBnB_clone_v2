@@ -3,6 +3,7 @@
 from sqlalchemy import create_engine
 from os import getenv
 from sqlalchemy.orm import scoped_session, sessionmaker, Session
+from models.base_model import BaseModel, Base
 
 
 class DBStorage:
@@ -23,48 +24,48 @@ class DBStorage:
         if getenv(HBNB_ENV) == 'test':
             Base.metadata.drop_all(self.__engine)
 
-        def all(self, cls=None):
-            """
-            returns a dictionary containing objects
-            """
+    def all(self, cls=None):
+        """
+        returns a dictionary containing objects
+        """
 
-            objs = []
-            if cls:
-                if issubclass(cls, Base):
-                    objs = self.__session.query(cls).all()
+        objs = []
+        if cls:
+            if issubclass(cls, Base):
+                objs = self.__session.query(cls).all()
             else:
                 for sclass in Base.__subclasses__():
                     objs.extend(self.__session.query(sclass).all())
 
-            objs_dict = {}
+        objs_dict = {}
 
-            for obj in objs:
-                key = f"{class_.__name__}.{obj.id}"
-                objs_dict[key] = obj
+        for obj in objs:
+            key = f"{class_.__name__}.{obj.id}"
+            objs_dict[key] = obj
 
-            return obj_dict
+        return obj_dict
 
-        def new(self, obj):
-            """
-            add the objects to the  current database session
-            """
-            self.__session.add(obj)
-            self.__session.commit()
+    def new(self, obj):
+    """
+    add the objects to the  current database session
+    """
+    self.__session.add(obj)
+    self.__session.commit()
 
-        def save(self):
-            """
-            commit all changes of the current database session
-            """
-            self.__session.commit()
+    def save(self):
+    """
+    commit all changes of the current database session
+    """
+    self.__session.commit()
 
-        def delete(self, obj=None):
-            """
-            delete from the current database session
-            """
-            if obj:
-                self.__session.delete(obj)
+    def delete(self, obj=None):
+        """
+        delete from the current database session
+        """
+        if obj:
+            self.__session.delete(obj)
 
-        def reload(self):
+    def reload(self):
             """
 
             """
