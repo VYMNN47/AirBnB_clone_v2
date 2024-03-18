@@ -17,10 +17,10 @@ class DBStorage:
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
 
-        db_url = f"mysql+mysqldb://{}:{}@{}/{}".format(user,
-                                                       pswrd,
-                                                       host,
-                                                       db)
+        db_url = "mysql+mysqldb://{}:{}@{}/{}".format(user,
+                                                      pswrd,
+                                                      host,
+                                                      db)
 
         self.__engine = create_engine(db_url, pool_pre_ping=True)
 
@@ -43,7 +43,7 @@ class DBStorage:
         objs_dict = {}
 
         for obj in objs:
-            key = f"{class_.__name__}.{obj.id}"
+            key = "{}.{}".format(class_.__name__, obj.id)
             objs_dict[key] = obj
 
         return obj_dict
