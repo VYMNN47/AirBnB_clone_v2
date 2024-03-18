@@ -12,16 +12,16 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        user = getenv(HBNB_MYSQL_USER)
-        pswrd = getenv(HBNB_MYSQL_PWD)
-        host = getenv(HBNB_MYSQL_HOST)
-        db = getenv(HBNB_MYSQL_DB)
+        user = getenv("HBNB_MYSQL_USER")
+        pswrd = getenv("HBNB_MYSQL_PWD")
+        host = getenv("HBNB_MYSQL_HOST")
+        db = getenv("HBNB_MYSQL_DB")
 
         db_url = f"mysql+mysqldb://{user}:{pswrd}@{host}/{db}"
 
         self.__engine = create_engine(db_url, pool_pre_ping=True)
 
-        if getenv(HBNB_ENV) == 'test':
+        if getenv("HBNB_ENV") == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
