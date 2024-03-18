@@ -24,7 +24,7 @@ class DBStorage:
 
         self.__engine = create_engine(db_url, pool_pre_ping=True)
 
-        if getenv("HBNB_ENV") == 'test':
+        if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -34,11 +34,16 @@ class DBStorage:
 
         objs = []
         if cls:
+            if isinstance(cls, str):
+                try:
+                    cls = globals()[cls]
+                except KeyError:
+                    pass
             if issubclass(cls, Base):
                 objs = self.__session.query(cls).all()
-            else:
-                for sclass in Base.__subclasses__():
-                    objs.extend(self.__session.query(sclass).all())
+        else:
+            for sclass in Base.__subclasses__():
+                objs.extend(self.__session.query(sclass).all())
 
         objs_dict = {}
 
