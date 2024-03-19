@@ -19,7 +19,7 @@ if storage_type == "db":
                                  String(60),
                                  ForeignKey("amenities.id"),
                                  primary_key=True,
-                                 nullable=False))
+                                 nullable=False)
 
 
 class Place(BaseModel, Base):
