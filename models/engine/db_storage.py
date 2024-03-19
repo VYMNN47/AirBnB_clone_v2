@@ -9,10 +9,12 @@ from models.city import City
 from models.place import Place
 from models.user import User
 
+
 classes = {"State": State, "City": City, "User": User, "Place": Place}
 
-class DBStorage:
 
+class DBStorage:
+    """DB Storage engine for mysql"""
     __engine = None
     __session = None
 
@@ -50,7 +52,6 @@ class DBStorage:
                 key = obj.__class__.__name__ + '.' + obj.id
                 dct[key] = obj
         return dct
-
 
         return obj_dict
 
