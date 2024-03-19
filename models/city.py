@@ -3,7 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, String
 from models import storage_type
-
+from sqlalchemy.orm import relationship
 
 class City(BaseModel, Base):
     """ The city class"""
