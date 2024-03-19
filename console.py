@@ -125,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             kwargs = {}
-            commands = arg.split(" ")
+            commands = args.split(" ")
             for i in range(1, len(commands)):
 
                 key = commands[i].split("=")[0]
