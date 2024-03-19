@@ -7,6 +7,8 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 
+classes = {"User": User, "State": State, "City": City,
+           "Amenity": Amenity, "Place": Place, "Review": Review}
 
 class DBStorage:
 
@@ -34,24 +36,20 @@ class DBStorage:
         returns a dictionary containing objects
         """
 
-        objs = []
-        if cls:
-            if isinstance(cls, str):
-                try:
-                    cls = globals()[cls]
-                except KeyError:
-                    pass
-            if issubclass(cls, Base):
-                objs = self.__session.query(cls).all()
+        dct = {}
+        if cls is None:
+            for c in classes.values():
+                objs = self.__session.query(c).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    dct[key] = obj
         else:
-            for sclass in Base.__subclasses__():
-                objs.extend(self.__session.query(sclass).all())
+            objs = self.__session.query(cls).all()
+            for obj in objs:
+                key = obj.__class__.__name__ + '.' + obj.id
+                dct[key] = obj
+        return dct
 
-        objs_dict = {}
-
-        for obj in objs:
-            key = "{}.{}".format(class_.__name__, obj.id)
-            objs_dict[key] = obj
 
         return obj_dict
 
