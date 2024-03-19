@@ -7,8 +7,7 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 
-classes = {"User": User, "State": State, "City": City,
-           "Amenity": Amenity, "Place": Place, "Review": Review}
+classes = {"State": State, "City": City}
 
 class DBStorage:
 
