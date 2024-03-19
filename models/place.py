@@ -2,7 +2,7 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Float, Integer
-rom models import storage_type
+from models import storage_type
 
 
 class Place(BaseModel):
