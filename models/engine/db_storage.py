@@ -60,7 +60,6 @@ class DBStorage:
         add the objects to the  current database session
         """
         self.__session.add(obj)
-        self.__session.commit()
 
     def save(self):
         """
