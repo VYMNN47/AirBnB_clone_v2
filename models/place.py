@@ -1,10 +1,25 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Float, Integer
+from sqlalchemy import Column, String, ForeignKey, Float, Integer, Table
 from models import storage_type
 from sqlalchemy.orm import relationship
 from models.review import Review
+from models.amenity import Amenity
+
+
+if storage_type == "db":
+    place_amenity = Table("place_amenity", Base.metadata,
+                          Column("place_id",
+                                 String(60)
+                                 ForeignKey('places.id')
+                                 primary_key=True
+                                 nullable=False)
+                          Column("amenity_id",
+                                 String(60)
+                                 ForeignKey("amenities.id")
+                                 primary_key=True
+                                 nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -23,6 +38,8 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         reviews = relationship('Review', backref='place', cascade='all,\
                               delete, delete-orphan')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False, backref='place_amenities')
 
     else:
         city_id = ""
@@ -47,3 +64,22 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     related_reviews.append(review)
             return related_reviews
+
+        @property
+        def amenities(self):
+            """getter for list of amenity instances related to the place"""
+            from models import storage
+            related_amenities = []
+            amenities = storage.all(Amenity)
+            for amenity in amenities.values():
+                if amenity.place_id == self.id:
+                    related_amenities.append(amenity)
+            return related_amenities
+
+        @amenities.setter
+        def amenities(self, obj):
+            """setter for list of amenity instances related to the place"""
+            if obj:
+                if isinstance(obj, Amenity):
+                    if obj.id not in self.amenity_ids:
+                        self.amenity_ids.append(obj.id)
