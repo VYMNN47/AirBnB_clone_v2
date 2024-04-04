@@ -20,12 +20,13 @@ def do_pack():
     except Exception:
         return None
 
+
 def do_deploy(archive_path):
     """distributes an archive to the web servers"""
     if exists(archive_path) is False:
         return False
     try:
-        file_n = os.path.basename(archive_path)
+        file_n = archive_path.split("/")[-1]
         no_ext = file_n.split(".")[0]
         path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
