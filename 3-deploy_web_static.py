@@ -4,7 +4,7 @@ from fabric.api import local, env, put, run
 from datetime import datetime
 import os
 
-env.hosts = ['54.237.207.109', '54.87.255.39']
+env.hosts = ['34.224.5.178', '35.153.19.10']
 env.user = 'ubuntu'
 
 
@@ -41,10 +41,14 @@ def do_deploy(archive_path):
     except Exception:
         return False
 
-
 def deploy():
-    """creates and distributes an archive to the web servers"""
-    archive_path = do_pack()
+    """ Deploy the the archive dynamically"""
+    archive_path = os.getenv('archive_path', None)
+    if archive_path is None:
+        archive_path = do_pack()
+        os.environ['archive_path'] = archive_path
+
     if archive_path is None:
         return False
-    return do_deploy(archive_path)
+    result = do_deploy(archive_path)
+    return result
