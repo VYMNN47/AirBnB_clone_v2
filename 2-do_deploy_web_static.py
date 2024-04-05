@@ -23,13 +23,14 @@ def do_pack():
 
 def do_deploy(archive_path):
     """distributes an archive to the web servers"""
-    if exists(archive_path) is False:
+    if not archive_path or not os.path.exists(archive_path):
         return False
     try:
         file_name = os.path.basename(archive_path)
         no_ext = file_name.split(".")[0]
         path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
+        run("rm -rf {}{}/".format(path, no_ext))
         run('mkdir -p {}{}/'.format(path, no_ext))
         run('tar -xzf /tmp/{} -C {}{}/'.format(file_name, path, no_ext))
         run('rm /tmp/{}'.format(file_name))
@@ -37,6 +38,7 @@ def do_deploy(archive_path):
         run('rm -rf {}{}/web_static'.format(path, no_ext))
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
+        print("New version deployed!")
         return True
     except Exception:
         return False
