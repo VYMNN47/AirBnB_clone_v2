@@ -86,6 +86,5 @@ class DBStorage:
         Session = scoped_session(fsession)
         self.__session = Session()
 
-
     def close(self):
         self.__session.close()
