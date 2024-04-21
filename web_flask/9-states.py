@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""A simple Flask web application."""
+"""FLASK APP"""
 
 from models import storage
 from models.state import State
