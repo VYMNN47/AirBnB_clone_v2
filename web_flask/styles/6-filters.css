@@ -1,0 +1,105 @@
+section.filters {
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+section.filters button {
+	font-size: 18px;
+	background-color: #FF5A5F;
+	color: #FFFFFF;
+	height: 48px;
+	width: 20%;
+	border: none;
+	top: 12px;
+	right: 30px;
+	border-radius: 4px;
+	position: absolute;
+}
+
+section.filters button:hover {
+	opacity: 90%;
+}
+
+section.filters div.locations {
+	position: absolute;
+	height: 100%;
+	width: 25%;
+	border-right: 1px solid #DDDDDD;
+}
+
+section.filters div.amenities {
+	position: absolute;
+        height: 100%;
+        width: 25%;
+        right: 50%;
+}
+
+section.filters div.locations h3, div.amenities h3 {
+	position: relative;
+	font-weight: 600;
+	left: 15%;
+}
+
+section.filters div.locations h4, div.amenities h4 {
+	font-weight: 400;
+	font-size: 14px;
+	top: 25%;
+	left: 15%;
+	position: absolute;
+}
+
+section.filters div.locations ul.popover {
+	position: relative;
+	background-color: #FAFAFA;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	top: 25%;
+	display: none;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	left: 0px;
+	margin: 0px;
+	z-index: 1;
+}
+
+section.filters div.locations ul.popover h2 {
+	padding-top: 5%;
+	font-size: 16px;
+	margin: 0;
+}
+
+section.filters div.locations ul {
+	position: relative;
+	list-style-type: none;
+	right: 8%;
+	padding-bottom: 5%;
+    	margin: 0px;
+}
+
+section.filters div.amenities ul.popover {
+        position: relative;
+        background-color: #FAFAFA;
+        border: 1px solid #DDDDDD;
+        border-radius: 4px;
+        top: 25%;
+        display: none;
+        padding-top: 10%;
+        padding-bottom: 10%;
+        padding-left: 15%;
+	left: 1px;
+        margin: 0px;
+	z-index: 1;
+}
+
+section.filters div.amenities ul {
+        position: relative;
+        list-style-type: none;
+}
+
+section.filters div.locations:hover ul.popover, section.filters div.amenities:hover ul.popover {
+	display: block;
+}
